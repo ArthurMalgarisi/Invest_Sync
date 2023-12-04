@@ -1,0 +1,28 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+              {% block deletar_carteira_acao %}
+              <div class="container-fluid pt-4 px-4 ">
+                <ul>
+                    <div class="bg-secondary  rounded p-4">
+                          <h2 class="text-center">Ação que será excluida: {{carteira_acao.id_acao.simbolo_acao }}</h2>
+                            <form action="{% url 'deletar_acao' portfolio.id_portfolio carteira.id_carteira carteira_acao.id_carteira_acao %}" method="POST">
+                            {% csrf_token %}
+                                <div class="modal-body">
+                                     O registro que você deseja excluir tem os seguintes dados:<br>
+                                    <br><tr><strong>Nome: {{ carteira_acao.id_acao.nome_acao }}</strong></tr>
+                                    <br><tr><strong>Descricao: {{ carteira_acao.id_acao.simbolo_acao }}</strong></tr>
+                                    <br><tr><strong>Cotação: {{ carteira_acao.cotacao|floatformat:"-2" }}</strong></tr><br>
+                                </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-sm btn-danger m-2" value="Excluir">
+                                <a href="{% url 'listar_acao' portfolio.id_portfolio carteira.id_carteira %}" class="btn btn-sm btn-danger">Cancelar</a>
+                            </div>
+                            </form>
+                        </div>
+                    </ul>
+                </div>
+                {% endblock %}
+
+

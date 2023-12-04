@@ -1,0 +1,156 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+{% block cadastrar_carteira_acao %}
+<style>
+     #autocomplete-container {
+        position: relative;
+        display: inline-block;
+        z-index: 1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #autocomplete-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        border-top: none;
+        max-height: 150px;
+        overflow-y: auto;
+        border-radius: 5px;
+        background-color:  #f8f9fa;
+        display: none;
+        z-index: 2;
+        margin-top: 5px;
+    }
+
+    .result-item {
+        padding: 12px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .result-item:hover {
+        background-color: #e6e6e6;
+    }
+
+    #autocomplete-results::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    #autocomplete-results::-webkit-scrollbar-thumb {
+        background-color: var(--light);
+        border-radius: 4px;
+    }
+    </style>
+<div class="container-fluid pt-4 px-4">
+    <ul>
+        <div class="bg-secondary text-center rounded p-4">
+            <h2>Cadastrar ação</h2>
+            <form action="{% url 'cadastrar_acao' portfolio.id_portfolio carteira.id_carteira %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" id="autocomplete-input" placeholder="BVMF" name="simbolo_acao" class="form-control" required>
+                        <label for="autocomplete-input">BVMF</label>
+                            <div id="autocomplete-results"></div>
+                        {% if error_message %}
+                            <p class="text-danger">{{ error_message }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" id="lote_acao" placeholder="Lote" name="lote_acao" class="form-control" required>
+                        <label for="lote_acao">Lote</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="float" id="cotacao" placeholder="Cotação" name="cotacao" class="form-control" required>
+                        <label for="cotacao">Cotação</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" id="data_compra" placeholder="Data de aquisição" name="data_compra" class="form-control" required>
+                        <label for="cotacao">Data de compra</label>
+                        {% if error_message_data %}
+                            <p class="text-danger">{{ error_message_data }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-sm btn-primary" value="Cadastrar">
+                    <a href="{% url 'listar_acao' portfolio.id_portfolio carteira.id_carteira %}" class="btn btn-sm btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </ul>
+</div>
+<script>
+    // Dados de exemplo (substitua isso pelos dados do seu banco de dados)
+    const dadosDoBanco = {{simbolos_acao|safe}};
+
+    // Elementos DOM
+    const input = document.getElementById('autocomplete-input');
+    const resultsContainer = document.getElementById('autocomplete-results');
+
+    // Evento de entrada no campo de texto
+    input.addEventListener('input', function () {
+        const termoDigitado = input.value.toLowerCase();
+        const sugestoes = filtrarSugestoes(termoDigitado);
+
+        exibirSugestoes(sugestoes);
+    });
+
+    // Filtrar sugestões com base no termo digitado
+    function filtrarSugestoes(termo) {
+        return dadosDoBanco.filter(function (item) {
+            return item.toLowerCase().includes(termo);
+        });
+    }
+
+    // Exibir sugestões
+    function exibirSugestoes(sugestoes) {
+        resultsContainer.innerHTML = '';
+
+        sugestoes.forEach(function (sugestao) {
+            const item = document.createElement('div');
+            item.classList.add('result-item');
+            item.textContent = sugestao;
+
+            item.addEventListener('click', function () {
+                // Lidar com a seleção da sugestão (pode ser um redirecionamento, preenchimento do campo, etc.)
+                input.value = sugestao;
+                resultsContainer.innerHTML = ''; // Ocultar sugestões após a seleção
+            });
+
+            resultsContainer.appendChild(item);
+        });
+
+        // Exibir o contêiner de resultados apenas se houver sugestões
+        resultsContainer.style.display = sugestoes.length > 0 ? 'block' : 'none';
+    }
+
+    // Ocultar sugestões quando clicar fora do contêiner
+    document.addEventListener('click', function (event) {
+        if (!resultsContainer.contains(event.target)) {
+            resultsContainer.style.display = 'none';
+        }
+    });
+
+    document.getElementById('data_compra').addEventListener('input', function (event) {
+        let inputValue = event.target.value;
+
+        // Remova todos os caracteres não numéricos
+        inputValue = inputValue.replace(/\D/g, '');
+
+        // Adicione barras conforme o usuário digita
+        if (inputValue.length > 2 && inputValue.length < 5) {
+            inputValue = inputValue.substring(0, 2) + '/' + inputValue.substring(2);
+        } else if (inputValue.length >= 5) {
+            inputValue = inputValue.substring(0, 2) + '/' + inputValue.substring(2, 4) + '/' + inputValue.substring(4, 8);
+        }
+
+        // Atualize o valor no campo
+        event.target.value = inputValue;
+        });
+</script>
+{% endblock %}

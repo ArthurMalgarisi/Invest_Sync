@@ -1,0 +1,16 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block titulo_aba_nav %}Deletar Usuario{% endblock %}
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+{% block deletar_usuario %}
+    <h1>Excluir</h1>
+    <form action="{% url 'deletar_usuario' usuario.id %}" method="POST">
+            {% csrf_token %}
+            Deseja Mesmo Excluir o Registro :
+            <br><tr><strong>ID: {{ usuario.id }}</strong></tr>
+            <br><tr><strong>Nome: {{ usuario.username }}</strong></tr>
+            <br><tr><strong>Email: {{ usuario.email }}</strong></tr><br>
+        <button type="submit" class="btn btn-danger">Excluir</button>
+    </form>
+{% endblock %}

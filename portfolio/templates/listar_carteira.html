@@ -1,0 +1,238 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+{% block charts %}
+<hr style="border-top: 3px solid white;">
+<div class="container-fluid pt-4 px-4 mb-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">                              
+                <h6>Total Investido por Carteira no Portfolio: {{ portfolio.nome_portfolio }}</h6>
+                <ul>
+                    {% for dado in porcent_pizza %}
+                        <li>{{ dado.nome_carteira }}: R$ {{ dado.valor_total_carteira|floatformat:2 }}</li>
+                    {% endfor %}
+                </ul>
+                <br>
+                <canvas id="pizza"></canvas>
+            </div>    
+        </div>
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6>Total Investido por Carteira no Portfolio: {{ portfolio.nome_portfolio }}</h6>
+                <br>
+                <canvas id="grafico-bar"></canvas>
+                <hr>
+                <canvas id="grafico-line"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+        <!-- Content End -->
+            <script>
+             var porcent_pizza = {{ porcent_pizza|safe }};
+
+            // Extrai os meses e valores para os arrays necessários para o Chart.js
+            var carteira = porcent_pizza.map(function(item) {
+                return item.nome_carteira;
+            });
+
+            var valores = porcent_pizza.map(function(item) {
+                return item.porcent;
+            });
+
+            // Gera cores aleatórias para os datasets
+            function gerarCorAleatoria() {
+                var letras = '0123456789ABCDEF';
+                var cor = '#';
+                for (var i = 0; i < 6; i++) {
+                    cor += letras[Math.floor(Math.random() * 16)];
+                }
+                return cor;
+            }
+
+            var cores = carteira.map(function() {
+                return gerarCorAleatoria();
+            });
+
+            // Imprimir os valores no console para verificação
+            console.log('Carteira:', carteira);
+            console.log('Valores:', valores);
+
+            var ctx = document.getElementById('pizza').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: carteira,
+                    datasets: [{
+                        label: 'valor da carteira',
+                        data: valores,
+                        backgroundColor: cores,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    // Adicionar o símbolo "%" ao rótulo do tooltip
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+
+                            /// Recupera os dados passados do Django
+            var dados_bar = {{ dados_bar|safe }};
+
+            // Extrai os meses e valores para os arrays necessários para o Chart.js
+            var mesesBar = dados_bar.map(function(item) {
+                return item.mes;
+            });
+
+            var valoresBar = dados_bar.map(function(item) {
+                return item.valor;
+            });
+
+            function gerarCorAleatoria() {
+                var letras = '0123456789ABCDEF';
+                var cor = '#';
+                for (var i = 0; i < 6; i++) {
+                    cor += letras[Math.floor(Math.random() * 16)];
+                }
+                return cor;
+            }
+
+            var cores = carteira.map(function() {
+                return gerarCorAleatoria();
+            });
+
+            // Cria o gráfico de barras usando Chart.js
+            var ctxBar = document.getElementById('grafico-bar').getContext('2d');
+            var myBarChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: mesesBar,
+                    datasets: [{
+                        label: 'Investimento por Mês',
+                        data: valoresBar,
+                        backgroundColor: cores,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            var dados_line = {{ dados_line|safe }};
+
+            // Extrai os meses e valores para os arrays necessários para o Chart.js
+            var mesesLine = dados_line.map(function(item) {
+                return item.mes;
+            });
+
+            var valoresLine = dados_line.map(function(item) {
+                return item.valor;
+            });
+
+            function gerarCorAleatoria() {
+                var letras = '0123456789ABCDEF';
+                var cor = '#';
+                for (var i = 0; i < 6; i++) {
+                    cor += letras[Math.floor(Math.random() * 16)];
+                }
+                return cor;
+            }
+
+            var cores = carteira.map(function() {
+                return gerarCorAleatoria();
+            });
+
+            // Cria o gráfico de linhas usando Chart.js
+            var ctxLine = document.getElementById('grafico-line').getContext('2d');
+            var myLineChart = new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: mesesLine,
+                    datasets: [{
+                        label: 'Investimento por Mês',
+                        data: valoresLine,
+                        backgroundColor: cores,
+                        borderColor: cores,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            </script>
+{% endblock %}
+
+{% block listar_carteira  %}
+            <div class="container-fluid pt-4 px-4 ">
+                    <div class="row g-4">
+                        <div class="page-links" style="display: flex; justify-content: center;">
+                            {% if page.has_previous %}
+                                <a  href="{% url 'listar_carteira' portfolio.id_portfolio %}?page={{page.previous_page_number}}" style="margin-right: auto;"><i class="bi bi-arrow-left"></i> Anterior</a>
+                            {% endif %}
+                            <h5 style="{% if not page.has_previous or not page.has_next %}margin:  0 auto;{% endif %} color: var(--primary) " >Carteira</h5>
+                            {% if page.has_next %}
+                                <a href="{% url 'listar_carteira' portfolio.id_portfolio %}?page={{page.next_page_number}}" style="margin-left: auto;">Próximo <i class="bi bi-arrow-right"></i></a>
+                            {% endif %}
+                        </div>
+                        {% for carteira in page.object_list %}
+                        <div class="col-sm-5 col-xl-6" >
+                            <div class="bg-secondary rounded align-items-center justify-content-between p-4" >
+                                <div class="ms-3">
+                                    <div class="row">
+                                        <div>
+                                            <h6 class="mb-3">{{ carteira.nome_carteira }} </h6>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="mb-1"> Descrição: {{ carteira.descricao_carteira }} </p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="mb-1"> Valor Total: R$ {{ carteira.valor_total_carteira|floatformat:2 }} </p>
+                                            {# Lógica para calcular a quantidade de ações diretamente no template #}
+                                            {% with quantidade_acoes=carteira.carteira_acao_set.all|length %}
+                                                <p class="mb-1"> Quantidade de Ações: {{ quantidade_acoes }} </p>
+                                            {% endwith %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <a href="{% url 'listar_acao' portfolio.id_portfolio carteira.id_carteira %}" class="btn btn-sm btn-primary">Visualizar</a>
+                                        <a href="{% url 'editar_carteira' portfolio.id_portfolio carteira.id_carteira %}" class="btn btn-sm ms-auto"><i class="bi bi-pencil-square"></i></a>
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'deletar_carteira' portfolio.id_portfolio carteira.id_carteira %}" class="btn btn-sm btn-danger ms-auto"><i class="bi bi-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+        <!-- Back to Top -->
+        <a href="{% url 'listar_portfolio' %}" class="btn btn-lg btn-primary btn-lg-square back-to-top-left"><i class="bi bi-arrow-left"></i></i></a>
+        <a  href="{% url 'cadastrar_carteira' portfolio.id_portfolio %}" class="btn btn-lg btn-primary btn-lg-square back-to-top-right"><i class="bi bi-plus"></i></a>
+    </div>
+{% endblock %}
+
+
+

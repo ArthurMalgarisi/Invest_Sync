@@ -1,0 +1,57 @@
+{% extends 'home_base_autenticacao.html' %}
+{% load static %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+{% block sua_template %}
+<!-- sua_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Gráfico</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="meuGrafico"></canvas>
+
+    <script>
+        // Recupera os dados passados do Django
+        var dados_bar = {{ dados_bar|safe }};
+
+        // Extrai os meses e valores para os arrays necessários para o Chart.js
+        var meses = dados_bar.map(function(item) {
+            return item.mes;
+        });
+
+        var valores = dados_bar.map(function(item) {
+            return item.valor;
+        });
+
+        // Cria o gráfico usando Chart.js
+        var ctx = document.getElementById('meuGrafico').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: 'Investimento por Mês',
+                    data: valores,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+{% endblock %}

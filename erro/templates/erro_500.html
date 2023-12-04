@@ -1,0 +1,27 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block titulo_aba_nav %}Home{% endblock %}
+
+{% block erro_500 %}
+<div id="layoutError">
+    <div id="layoutError_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="text-center mt-5">
+                            <h1 class="display-1">500</h1>
+                            <p class="lead">Erro Interno</p>
+                            <a href="{% url 'home' %}">
+                                <i class="fas fa-arrow-left me-1"></i>
+                                Retorne para a Home
+                            </a>
+                            <hr>
+                            <h6>Contate o suporte informando o código na tela</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+            {% block deletar_portfolio %}
+              <div class="container-fluid pt-4 px-4 ">
+                <ul>
+                {% for dados in dados_portfolio %}
+                    <div class="bg-secondary  rounded p-4">
+                          <h2 class="text-center">Portfolio que será excluida: {{dados.portfolio.nome_portfolio}}</h2>
+                            <form action="{% url 'deletar_portfolio' portfolio.id_portfolio %}" method="POST">
+                            {% csrf_token %}
+                                <div class="modal-body">
+                                     <p class="mb-2">Descricao: {{ dados.portfolio.descricao_portfolio }} </p>
+                                     <p class="mb-2">Valor de Portfolio: R$ {{ dados.valor_total_portfolio }} </p>
+                                     <p class="mb-2">Quantidade de Carteira: {{ dados.quantidade_carteira }} </p>
+                                </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-sm btn-danger m-2" value="Excluir">
+                                <a href="{% url 'listar_portfolio' %}" class="btn btn-sm btn-danger m-2">Cancelar</a>
+                            </div>
+                            </form>
+                        </div>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endblock %}

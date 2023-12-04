@@ -1,0 +1,64 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+{% block visualizar_carteira %}
+
+          <div class="container-fluid pt-4 px-4">
+              <div class="page-links mb-2" style="display: flex; justify-content: center;">
+                            {% if page.has_previous %}
+                                <a  href="{% url 'listar_acao' portfolio.id_portfolio carteira.id_carteira %}?page={{page.previous_page_number}}" style="margin-right: auto;"><i class="bi bi-arrow-left"></i> Anterior</a>
+                            {% endif %}
+            <!--                <p>teste</p>-->
+                            {% if page.has_next %}
+                                <a href="{% url 'listar_acao' portfolio.id_portfolio carteira.id_carteira %}?page={{page.next_page_number}}" style="margin-left: auto;">Próximo <i class="bi bi-arrow-right"></i></a>
+                            {% endif %}
+                        </div>
+            <div class="bg-secondary text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Ações</h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr class="text-white">
+                                <th scope="col">Empressa</th>
+                                <th scope="col">BVMF</th>
+                                <th scope="col">Lote</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Data de compra</th>
+                                <th scope="col">Visualizar</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                         {% if page %}
+                         {% for item in page.object_list %}
+                            <tr>
+                                <td>{{ item.id_acao.nome_empresa }}</td>
+                                <td>{{ item.id_acao.simbolo_acao }}</td>
+                                <td>{{ item.lote_acao }}</td>
+                                <td>R$ {{ item.cotacao|floatformat:"-2" }}</td>
+                                <td>{{ item.data_compra }}</td>
+                                <td><a class="btn btn-sm btn-primary" href="{% url 'detalhar_acao' portfolio.id_portfolio carteira.id_carteira item.id_carteira_acao item.id_acao.id_acao %}" ><i class="bi bi-chat-left-text"></i>  Detalhes</a></td>
+                                <td><a class="btn btn-sm btn-primary" href="{% url 'editar_acao' portfolio.id_portfolio carteira.id_carteira item.id_carteira_acao %}"><i class="bi bi-pencil-square"></i>  Editar</a></td>
+                                <td><a class="btn btn-sm btn-danger" href="{% url 'deletar_acao' portfolio.id_portfolio carteira.id_carteira item.id_carteira_acao %}"><i class="bi bi-trash"></i>  Excluir</a></td>
+                            </tr>
+                         {% endfor %}
+                         {% else %}
+                          <tr>
+                              <td colspan="8">Nenhuma Ação Registrada</td>
+                          </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Back to Top -->
+         <a href="{% url 'listar_carteira' portfolio.id_portfolio %}" class="btn btn-lg btn-primary btn-lg-square back-to-top-left"><i class="bi bi-arrow-left"></i></i></a>
+        <a href="{% url 'cadastrar_acao' portfolio.id_portfolio carteira.id_carteira %}"class="btn btn-lg btn-primary btn-lg-square back-to-top-right"><i class="bi bi-plus"></i></a>
+    </div>
+{% endblock %}
+

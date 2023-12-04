@@ -1,0 +1,30 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+{% block editar_portfolio %}
+<div class="container-fluid pt-4 px-4">
+    <ul>
+        <div class="bg-secondary text-center rounded p-4">
+            <h2>Editar Portfolio: {{ portfolio.nome_portfolio }}</h2>
+            <form action="{% url 'editar_portfolio' portfolio.id_portfolio %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" id="nome_portfolio" name="nome_portfolio" value="{{ portfolio.nome_portfolio }}" class="form-control" required>
+                        <label for="nome_portfolio">Nome do Portfolio</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" id="descricao_portfolio" value="{{ portfolio.descricao_portfolio }}" name="descricao_portfolio" class="form-control"  required>
+                        <label for="descricao_portfolio">Descrição</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-sm btn-primary" value="Salvar Alterações">
+                    <a href="{% url 'listar_portfolio' %}" class="btn btn-sm btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </ul>
+</div>
+{% endblock %}

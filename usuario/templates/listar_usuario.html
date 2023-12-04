@@ -1,0 +1,37 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+{% block meu_perfil %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-secondary text-white shadow-lg">
+                <div class="card-body text-center">
+                    {% if usuario %}
+
+                    <h3 class="card-title">{{ usuario.username }}</h3>
+
+                    <div class="profile-info">
+                        <label class="fw-bold">E-mail: {{ usuario.email }}</label>
+                    </div>
+
+                    <div class="profile-info">
+                        <label class="fw-bold">Data de Nascimento: {{ usuario.data_nascimento }}</label>
+                    </div>
+                    <div class="profile-info">
+                        <label class="fw-bold">Endereço: {{ usuario.endereco }}</label>
+                    </div>
+                    <div class="profile-info">
+                        <label class="fw-bold">Data de Criação: {{ usuario.date_joined|date:"F d, Y H:i:s" }}</label>
+                    </div>
+                    <div class="mt-4">
+                        <a href="{% url 'editar_usuario' usuario.id %}" class="btn btn-primary">Editar Perfil</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

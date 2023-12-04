@@ -1,0 +1,69 @@
+{% extends 'home_base_autenticacao.html' %}
+{% load static %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+{% block charts %}
+<div class="container-fluid pt-4 px-4  pt-4 px-4 mb-4">
+        <div class="row bg-secondary rounded justify-content-center mx-0">
+            <div class="row g-4 ">
+        <div class="col-sm-12 col-xl-11 justify-content-center">
+            <div class="bg-secondary rounded h-100 p-4 justify-content-center">
+                <h6 class="mb-4 text-center">Valor total por portfolios/quantidade de carteiras</h6>
+                <canvas id="mixedChart"  width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Recupera os dados passados do Django
+    var dados_portfolio = {{ dados_portfolio|safe }};
+
+    // Extrai os nomes, valores totais e quantidades de carteiras
+    var nomes = dados_portfolio.map(item => item.nome);
+    var valoresTotais = dados_portfolio.map(item => item.valor_total);
+    var quantidadesCarteiras = dados_portfolio.map(item => item.quant_carteira);
+
+    // Configurações do gráfico de barras empilhadas
+    var ctx = document.getElementById('mixedChart').getContext('2d');
+    var mixedChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: nomes,
+            datasets: [
+            {
+                    label: 'Valor Total',
+                    data: valoresTotais,
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Quantidade de Carteiras',
+                    data: quantidadesCarteiras,
+                    type: 'line', // Tipo de gráfico para o segundo conjunto de dados (linha)
+                    fill: false, // Não preencher abaixo da linha
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2,
+                    pointRadius: 7, // Tamanho dos marcadores (bolinhas)
+                    yAxisID: 'y-axis-1' // Eixo Y para o segundo conjunto de dados
+                },
+                
+            ]
+        },
+        options: {
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    beginAtZero: true,
+                    position: 'right',
+                    stacked: true,
+                },
+            }
+        }
+    });
+</script>
+{% endblock %}

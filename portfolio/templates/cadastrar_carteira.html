@@ -1,0 +1,30 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+{% block cadastrar_carteira %}
+<div class="container-fluid pt-4 px-4">
+    <ul>
+        <div class="bg-secondary text-center rounded p-4">
+            <h2>Cadastrar Carteira</h2>
+            <form action="{% url 'cadastrar_carteira' portfolio.id_portfolio %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" id="nome_carteira" placeholder="Nome" name="nome_carteira" class="form-control" required>
+                        <label for="nome_carteira">Nome da carteira</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" id="descricao_carteira" placeholder="Descrição" name="descricao_carteira" class="form-control"  required>
+                        <label for="descricao_carteira">Descrição</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-sm btn-primary" value="Cadastrar">
+                    <a href="{% url 'listar_carteira' portfolio.id_portfolio %}" class="btn btn-sm btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </ul>
+</div>
+{% endblock %}

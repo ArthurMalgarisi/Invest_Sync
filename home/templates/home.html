@@ -1,0 +1,305 @@
+{% load static %}
+
+{% block home %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'favicon/icon.png' %}" type="image/png">
+
+    <title>Investsync</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <!-- Template Stylesheet -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <style>
+        body {
+            padding-top: 56px; /* Adjust for fixed navbar height */
+            /* background-color: var(--secondary) */
+        }
+
+        body {
+            background: linear-gradient(#2F4F4F,#19BFB7, #191C24);
+        }
+
+        section {
+            padding: 80px 0;
+            width: 70%;
+            margin: 0 auto; /* Adiciona margens automáticas para centralizar */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-item img {
+        max-width: 100%;
+        height: auto;
+        max-height: 500px; /* Defina a altura máxima desejada */
+        }
+
+        #carouselExampleCaptions {
+        width: 75%;
+        margin: 0 auto; /* Para centralizar a div */
+        }
+
+        hr.colored-hr {
+        background-color: light; /* Cor de fundo desejada */
+        margin: 10px 10px 10px 10px; /* Margens superiores e inferiores */
+        border: none;
+        height: 2px; /* Altura da linha */
+        }
+
+        .titulos{
+            font-size: 30px; /* Especifique o tamanho da fonte desejado */
+            color: black;
+            text-align: center;
+        }
+
+        .ptexto{
+            color: black;
+        }
+
+        .subtitulos{
+            color: black;
+        }
+
+        .coluna{
+    float: left;
+    padding: 0 5%;
+    position:  relative;
+}
+.dois{
+    width: 40%;
+    padding: 0 4%;
+}
+.dois2{
+    width: 40%;
+    padding: 0 4%;
+    margin-top: 30px;
+}
+
+    </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Investsync</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="#section1">Bem-vindo</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section2">Controle</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section3">Recursos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section4">Começar Agora</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Sections -->
+
+    <section id="section1"  class="text-black">
+        <div class="container">
+            <p class="text-center mb-5 titulos">Bem-vindo(a) ao <strong>Investsync</strong></p>
+            <p class="text-justify ptexto">Seja muito bem-vindo(a) ao Investsync, o seu parceiro confiável para uma jornada financeira mais inteligente e eficaz.
+                Estamos empolgados em apresentar uma plataforma intuitiva e completa, projetada para elevar a sua experiência de investimento.</p>
+            <p class="text-justify ptexto">No InvestSync, não se trata apenas de números e gráficos; é sobre capacitar você a tomar decisões informadas e estratégicas.
+                Explore as funcionalidades intuitivas que oferecemos para cadastrar, analisar e monitorar seus ativos de maneira descomplicada.
+                Através de uma visão clara e abrangente do desempenho dos seus investimentos, você estará no controle total da sua jornada financeira.</p>
+            <p class="text-justify ptexto">Estamos comprometidos com a segurança dos seus dados, utilizando tecnologias avançadas para garantir a confidencialidade das suas informações financeiras.
+                Sinta-se seguro(a) ao explorar as oportunidades que o InvestSync proporciona, enquanto nos esforçamos para tornar sua experiência de investimento mais acessível, inteligente e gratificante.</p>
+            <p class="text-justify ptexto">Prepare-se para uma jornada emocionante no mundo dos investimentos.
+                O InvestSync está aqui para guiar você a cada passo, rumo ao sucesso financeiro.</p>
+        </div>
+    </section>
+    <hr class="colored-hr" >
+    <section id="section2" class=" text-black">
+        <div class="container">
+            <p class="text-center mb-5 titulos"><strong>Controle Seus Investimentos</strong></p>
+            <p class="text-justify ptexto">Desfrute de total autonomia sobre o destino dos seus investimentos com o InvestSync.
+                Nossa plataforma oferece uma experiência única, permitindo que você cadastre, analise e monitore todos os ativos do seu portfólio de forma simples e eficiente. 
+                Seja você um investidor iniciante ou experiente, nossa ferramenta intuitiva proporciona as ferramentas necessárias para tomar decisões informadas.</p>
+            <p class="text-justify ptexto">Cadastre novos investimentos com facilidade, analise o desempenho do seu portfólio em detalhes e monitore as mudanças no mercado em tempo real.
+                Com o InvestSync, o controle está literalmente em suas mãos, capacitando-o a ajustar estratégias, otimizar alocações e alcançar seus objetivos financeiros com confiança e conveniência.</p>
+        </div>
+    </section>
+    <hr class="colored-hr" >
+    <section id="section3" class=" text-black">
+        <div class="container">
+            <p class="text-center titulos"><strong>Recursos que oferecemos</strong></p>
+            <div class="d-flex align-items-start rounded h-100 p-4 text-center align-items-center mx-auto w-40">
+                <div class="nav flex-column nav-pills me-3" id="pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class=" btn btn-sm btn-secondary active mb-2" id="pills-home-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-home" type="button" role="tab"
+                        aria-controls="pills-home" aria-selected="true">Visualização</button>
+                    <button class=" btn btn-sm btn-secondary mb-2" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-profile" type="button" role="tab"
+                        aria-controls="pills-profile" aria-selected="false">Controle</button>
+                    <button class=" btn btn-sm btn-secondary mb-2" id="pills-contact-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-contact" type="button" role="tab"
+                        aria-controls="pills-contact" aria-selected="false">Segurança</button>
+                    <button class=" btn btn-sm btn-secondary" id="pills-decicao-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-decicao" type="button" role="tab"
+                        aria-controls="pills-decicao" aria-selected="false">Decisão</button>
+                </div>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active subtitulos text-justify" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        Desfrute de uma experiência visual intuitiva ao explorar o desempenho dos seus investimentos. Nossa plataforma oferece gráficos dinâmicos e dados de fácil compreensão, proporcionando uma visão clara e abrangente das suas atividades financeiras. Monitorar e analisar seus investimentos nunca foi tão simples e visualmente envolvente.                
+                    </div>
+                    <div class="tab-pane fade subtitulos text-justify" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        Tenha o controle total sobre o seu portfólio de investimentos com a nossa plataforma. Cadastre, ajuste, adicione ou retire ativos com facilidade, tudo em um só lugar. A flexibilidade que oferecemos permite que você tome decisões informadas e reaja rapidamente às mudanças no mercado, garantindo que seu portfólio esteja sempre alinhado com seus objetivos financeiros.                
+                    </div>
+                    <div class="tab-pane fade subtitulos text-justify" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                        Priorizamos a segurança dos seus dados financeiros. Utilizamos as mais recentes tecnologias e práticas de segurança para garantir que suas informações estejam protegidas contra ameaças cibernéticas. Nossa plataforma é projetada para oferecer tranquilidade, permitindo que você se concentre no que é mais importante: seus investimentos. Pode confiar que seus dados estão em mãos seguras.                
+                    </div>
+                    <div class="tab-pane fade subtitulos text-justify" id="pills-decicao" role="tabpanel" aria-labelledby="pills-decicao-tab">
+                        Transforme sua abordagem financeira com nossa inovadora funcionalidade de Portfolios e Carteiras Organizadas. Desfrute de uma visão sistêmica e refinada, capacitando-se para decisões mais inteligentes e estratégicas que revolucionam a eficiência na gestão de seus ativos.                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="colored-hr" >
+    <section id="section4" class=" text-black" >
+        <div class="container mb-3">
+            <P class="text-center titulos"><strong>O que você acha de começar agora?</strong></p>
+            <div class="text-center">
+                <a href="{% url 'logout_usuario' %}" class="btn btn-lg btn-secondary">Cadastra-se</a>
+            </div>
+        </div>
+        <div id="carouselExampleCaptions" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" aria-label="Slide 1" class="active" aria-current="true"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4" class=""></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5" class=""></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'img/tela-portfolio.png' %}" class="d-block w-100" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Tela de Portfolio</h5>
+                        <p>Gerencie Seus Ativos com Eficiência</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/tela-carteira.png' %}" class="d-block w-100" alt="Second slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Tela de Carteiras</h5>
+                        <p>Acompanhe Suas Carteiras de Perto</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/grafico-carteira.jpg' %}" class="d-block w-100" alt="Third slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Gráfico das carteiras'</h5>
+                        <p>Visualize Seu Desempenho com Gráficos Detalhados</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/tela-acao.png' %}" class="d-block w-100" alt="Four slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Tela de Ações</h5>
+                        <p>Detalhes Precisos sobre Suas Ações</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/tela-dashboard.png' %}" class="d-block w-100" alt="Five slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Tela de Dashboard</h5>
+                        <p>Tenha o Controle com Nosso Dashboard Central</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+            </button>
+        </div>    
+    </section>
+
+    <footer class="bg-dark text-white text-center py-3">
+    <div class="container-fluid ">
+        <div class="bg-dark rounded-top p-4">
+            <div class="row">
+                <div class="col-12 col-sm-4 text-center text-sm-start justify-content-center mt-4">
+                    &copy; <a href="#">Copyright  2023</a>, All Right Reserved.<br>
+                    Investsync
+                </div>
+                <div class="col-12 col-sm-4 text-center"> 
+                    <img src="{% static 'img/logo-semfundo2.png' %}" type="image/png" alt="Icon">
+                </div>
+                <div class="col-12 col-sm-4 text-center text-sm-end mt-4">
+                    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+    
+    <!-- Footer End -->
+<!-- Scripts -->
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.3/dist/js/bootstrap.min.js"></script>
+<!-- Owl Carousel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+
+<script>
+    // Smooth scroll for anchor links
+    $(document).ready(function(){
+        $('a[href^="#"]').on('click',function (e) {
+            e.preventDefault();
+
+            var target = this.hash,
+            $target = $(target);
+
+            $('html, body').stop().animate({
+                'scrollTop': $target.offset().top
+            }, 900, 'swing', function () {
+                window.location.hash = target;
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $(".testimonial-carousel").owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+        });
+    });
+
+    // Back to top button
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 300) {
+            $('.back-to-top').fadeIn('slow');
+        } else {
+            $('.back-to-top').fadeOut('slow');
+        }
+    });
+    $('.back-to-top').click(function () {
+        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        return false;
+    });
+</script>
+</body>
+</html>
+{% endblock %}

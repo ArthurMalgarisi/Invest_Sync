@@ -1,0 +1,82 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+{% block editar_usuario %}
+<div class="container-fluid pt-4 px-4">
+    <ul>
+        <div class="bg-secondary text-center rounded p-4">
+            <h2>Editar informações do usuário: {{usuario.username}}</h2>
+            <form id="editarUsuarioForm" action="{% url 'editar_usuario' usuario.id %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <!-- Seus campos de formulário aqui -->
+                    <div class="row mb-3">
+                        <label for="nome_usuario" class="col-sm-2 col-form-label">Nome:</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="nome_usuario" name="nome_usuario" value="{{ usuario.username }}" class="form-control py-2" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="email_usuario" class="col-sm-2 col-form-label">Email:</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="email_usuario" name="email_usuario" value="{{ usuario.email }}" class="form-control py-2" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="nascimento_usuario" class="col-sm-2 col-form-label">Data de nascimento:</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="data_compra" value="{{ usuario.data_nascimento|date:'d/m/Y' }}" name="nascimento_usuario" class="form-control py-2" required>
+                        </div>
+                    </div>
+                    {% if error_message_data_nascimento %}
+                            <p class="text-danger">{{ error_message_data_nascimento }}</p>
+                    {% endif %}
+                    <div class="row mb-3">
+                        <label for="endereco_usuario" class="col-sm-2 col-form-label">Endereço:</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="endereco_usuario" value="{{ usuario.endereco }}" name="endereco_usuario" class="form-control py-2" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-sm btn-primary" value="Salvar Alterações">
+                        <a href="{% url 'meu_perfil' %}" class="btn btn-sm btn-danger">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ul>
+</div>
+
+<script>
+     document.getElementById('data_compra').addEventListener('input', function (event) {
+        let inputValue = event.target.value;
+
+        // Remova todos os caracteres não numéricos
+        inputValue = inputValue.replace(/\D/g, '');
+
+        // Adicione barras conforme o usuário digita
+        if (inputValue.length > 2 && inputValue.length < 5) {
+            inputValue = inputValue.substring(0, 2) + '/' + inputValue.substring(2);
+        } else if (inputValue.length >= 5) {
+            inputValue = inputValue.substring(0, 2) + '/' + inputValue.substring(2, 4) + '/' + inputValue.substring(4, 8);
+        }
+
+        // Atualize o valor no campo
+        event.target.value = inputValue;
+
+        // Verifique se a data é maior que a data atual
+        let dataSelecionada = new Date(inputValue);
+        let dataAtual = new Date();
+
+        if (dataSelecionada > dataAtual) {
+            // Se a data for maior que a data atual, limpe o campo
+            event.target.value = '';
+            alert('A data não pode ser superior à data atual.');
+        }
+    });
+</script>
+
+{% endblock %}

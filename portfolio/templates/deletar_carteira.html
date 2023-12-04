@@ -1,0 +1,28 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+            {% block deletar_portfolio %}
+              <div class="container-fluid pt-4 px-4 ">
+                <ul>
+                    <div class="bg-secondary  rounded p-4">
+                          <h2 class="text-center">Carteira que será excluida: {{carteira.nome_carteira}}</h2>
+                            <form action="{% url 'deletar_carteira' portfolio.id_portfolio carteira.id_carteira %}" method="POST">
+                            {% csrf_token %}
+                                <div class="modal-body">
+                                    <br><tr><strong>Descricao: {{ carteira.descricao_carteira }}</strong></tr>
+                                    <br><tr><strong>Valor Total: {{ carteira.valor_total_carteira }}</strong></tr><br>
+                                    {# Lógica para calcular a quantidade de ações diretamente no template #}
+                                    {% with quantidade_acoes=carteira.carteira_acao_set.all|length %}
+                                        <p class="mb-1"> Quantidade de Ações: {{ quantidade_acoes }} </p>
+                                    {% endwith %}
+                                </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-sm btn-danger m-2" value="Excluir">
+                                <a href="{% url 'listar_carteira' portfolio.id_portfolio %}" class="btn btn-sm btn-danger">Cancelar</a>
+                            </div>
+                            </form>
+                        </div>
+                    </ul>
+                </div>
+                {% endblock %}

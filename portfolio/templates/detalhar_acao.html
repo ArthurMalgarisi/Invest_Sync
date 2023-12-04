@@ -1,0 +1,40 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{usuario.username}}{% endblock %}
+
+{% block detalhar_acao %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-secondary text-white shadow-lg">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Visualizando Ação: {{ acao.nome_acao }}</h2>
+                    <div class="profile-info">
+                        <label class="fw-bold">Menor preço: R$ {{ acao.preco_mais_baixo }}</label>
+                    </div>
+                    <div class="profile-info">
+                        <label class="fw-bold">Maior preço: R$ {{ acao.preco_mais_alto }}</label>
+                    </div>
+                    <div class="profile-info">
+                        <label class="fw-bold">Preço pago: R$ {{ carteira_acao.cotacao|floatformat:"-2"  }}</label>
+                    </div>
+                    <div class="profile-info">
+                        <label class="fw-bold">Lote adquirido: {{ carteira_acao.lote_acao }}</label>
+                    </div>
+                    <div class="profile-info">
+                        <label class="fw-bold">BVMF: {{ acao.simbolo_acao }}</label>
+                    </div>
+                    <div class="profile-info">
+                        <label class="fw-bold">Nome da Empresa: {{ acao.nome_empresa }}</label>
+                    </div>
+                    <div class="profile-info">
+                        <label class="fw-bold">Data de aquisição: {{ acao.data_acao }}</label>
+                    </div>
+                    <a href="{% url 'listar_acao' portfolio.id_portfolio carteira.id_carteira %}" class="btn btn-primary">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

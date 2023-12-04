@@ -1,0 +1,53 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block nome_usuario %}{{ usuario.username }}{% endblock %}
+
+{% block editar_carteira_acao %}
+<div class="container-fluid pt-4 px-4">
+    <ul>
+        <div class="bg-secondary text-center rounded p-4">
+            <h2>Editar Ação: {{ carteira_acao.id_acao.simbolo_acao }}</h2>
+            <form action="{% url 'editar_acao' portfolio.id_portfolio carteira.id_carteira carteira_acao.id_carteira_acao %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" id="lote_acao" name="lote_acao" value="{{ carteira_acao.lote_acao }}" class="form-control">
+                        <label for="lote_acao">Lote da ação:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" id="cotacao" name="cotacao" value="{{ carteira_acao.cotacao|floatformat:"-2" }}" class="form-control">
+                        <label for="cotacao">Preço da ação</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" id="data_compra" value="{{ carteira_acao.data_compra|date:'d/m/Y' }}" name="data_compra" class="form-control" required>
+                        <label for="data_compra">Data de compra:</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-sm btn-primary" value="Salvar Alterações">
+                    <a href="{% url 'listar_acao' portfolio.id_portfolio carteira.id_carteira %}" class="btn btn-sm btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </ul>
+</div>
+
+<script>
+    document.getElementById('data_compra').addEventListener('input', function (event) {
+        let inputValue = event.target.value;
+
+        // Remova todos os caracteres não numéricos
+        inputValue = inputValue.replace(/\D/g, '');
+
+        // Adicione barras conforme o usuário digita
+        if (inputValue.length > 2 && inputValue.length < 5) {
+            inputValue = inputValue.substring(0, 2) + '/' + inputValue.substring(2);
+        } else if (inputValue.length >= 5) {
+            inputValue = inputValue.substring(0, 2) + '/' + inputValue.substring(2, 4) + '/' + inputValue.substring(4, 8);
+        }
+
+        // Atualize o valor no campo
+        event.target.value = inputValue;
+    });
+</script>
+{% endblock %}

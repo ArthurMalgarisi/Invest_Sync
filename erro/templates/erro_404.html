@@ -1,0 +1,40 @@
+{% extends 'home_base_autenticacao.html' %}
+
+{% block titulo_aba_nav %}Home{% endblock %}
+
+{% block erro_404 %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>404 Error - SB Admin</title>
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="layoutError">
+            <div id="layoutError_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6">
+                                <div class="text-center mt-5">
+                                    <h1 class="display-1">404</h1>
+                                    <p class="lead">URL não encontrada</p>
+                                    <p>Esta URL solicitada não foi encontrada no servidor</p>
+                                    <a href="{% url 'home' %}">
+                                        <i class="fas fa-arrow-left me-1"></i>
+                                        Retorne para a Home
+                                    </a>
+                                    <hr>
+                                    <h6>Contate o suporte informando o código na tela</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+{% endblock %}
